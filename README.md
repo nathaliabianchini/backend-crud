@@ -1,27 +1,22 @@
-# Backend Project
+# backend crud prject
 
-This is a backend API built with Node.js, Express, TypeScript, and PostgreSQL. Prisma is used for database access, and the application runs in a Dockerized environment.
+this is a backend API built with Node.js, Express, TypeScript, and PostgreSQL. Prisma is used for database access, and the application runs in a Dockerized environment.
 
-## Technologies Used
+## technologies used
 
 - Node.js
 - Express
 - TypeScript
 - PostgreSQL
 - Prisma ORM
-- Docker
+- Docker 
 - Docker Compose
 - AWS S3 (via LocalStack)
 - JWT for authentication
 
-## Prerequisites
+## running the application
 
-- Docker and Docker Compose installed
-- DBeaver or any PostgreSQL database client (optional)
-
-## Running the Application
-
-1. Clone the repository:
+1. clone the repository:
    ```bash
    git clone <repository-url>
    cd backend
@@ -40,29 +35,18 @@ This is a backend API built with Node.js, Express, TypeScript, and PostgreSQL. P
    AWS_SECRET_ACCESS_KEY=test
    ```
 
-3. Run the application with Docker Compose:
+3. run the application with Docker Compose:
    ```bash
    docker compose up --build
    ```
 
-4. The API will be available at `http://localhost:3000`.
+## api endpoints
+   an overview of the available API endpoints, documented with Swagger.
+   <img width="1696" height="663" alt="Captura de tela 2025-07-28 220103" src="https://github.com/user-attachments/assets/222f4686-5b9a-4204-ba5b-521b1f8da259" />
 
-## Testing the Endpoints
+## db migrations
 
-You can test the endpoints using Postman or another API client.
-
-### Authentication Routes
-
-- `POST /auth/register`
-- `POST /auth/sign-in`
-
-## Database Migrations
-
-To apply Prisma migrations (optional when running manually):
+to apply Prisma migrations (optional when running manually):
 ```bash
 npx prisma migrate dev --name your_migration_name
 ```
-
-## License
-
-This project is licensed for educational purposes.
