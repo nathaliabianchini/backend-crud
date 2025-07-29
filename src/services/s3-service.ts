@@ -18,7 +18,7 @@ const s3 = new S3Client({
 
 export async function createBucket() {
     await s3.send(new CreateBucketCommand({ Bucket: bucketName }));
-    console.log("Bucket criado com sucesso.");
+    console.log("Bucket created successfully.");
 }
 
 export async function uploadImage(file: Express.Multer.File) {

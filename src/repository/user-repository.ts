@@ -16,8 +16,6 @@ export async function create(data: { name: string, email: string, cpf: string, p
         data: {
             ...data,
             avatar: "uploads/default-avatar.png",
-            xp: 0,
-            level: 1
         },
     });
 }

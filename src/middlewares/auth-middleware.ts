@@ -17,7 +17,7 @@ export default function authGuard(
     const authHeader = request.headers.authorization;
 
     if (!authHeader) {
-        response.status(401).json({ message: "Token não fornecido" });
+        response.status(401).json({ message: "Token not provided" });
         return;
     }
 
@@ -32,6 +32,6 @@ export default function authGuard(
         request.userId = user.id;
         next();
     } catch (error) {
-        response.status(401).json({ message: "Token inválido ou expirado" });
+        response.status(401).json({ message: "Invalid or expired token" });
     }
 }

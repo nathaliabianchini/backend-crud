@@ -31,6 +31,7 @@ services:
     depends_on:
       - postgresql
       - localstack
-
+    environment:
+    - DATABASE_URL=postgresql://user:bootcamp1@postgresql:5432/bootcamp_db?schema=public
 volumes:
   backend_postgres_data:
