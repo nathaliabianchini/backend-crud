@@ -27,12 +27,13 @@ This is a backend API built with Node.js, Express, TypeScript, and PostgreSQL. P
    cd backend
    ```
 
-2. Create a `.env` file in the root of the project and add the following variables:
+## .env
+   to run the application, a .env file containing environment variables is required.
    ```env
    PORT=3000
-   DATABASE_URL="postgresql://user:bootcamp1@localhost:5432/bootcamp_db?schema=public"
+   DATABASE_URL="postgresql://<user>:<password>@<host>:<port>/<database_name>?schema=public"
    JWT_SECRET=your_jwt_secret_here
-   BUCKET_NAME=bootcamp
+   BUCKET_NAME=<bucket_name>
    S3_ENDPOINT=http://localstack:4566
    AWS_REGION=us-east-1
    AWS_ACCESS_KEY=test
