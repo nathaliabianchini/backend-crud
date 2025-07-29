@@ -10,17 +10,17 @@ export default class UserController {
         try {
             const userId = req.params.userId;
             if (!userId) {
-                return res.status(401).json({ error: "Autenticação necessária." });
+                return res.status(401).json({ error: "Authentication required." });
             }
 
             const user = await UserRepository.getById(userId);
 
             if (!user) {
-                return res.status(404).json({ error: "Usuário não encontrado." });
+                return res.status(404).json({ error: "User not found." });
             }
 
             if (user.deletedAt) {
-                return res.status(403).json({ error: "Esta conta foi desativada e não pode ser utilizada." });
+                return res.status(403).json({ error: "This account has been deactivated and cannot be used." });
             }
 
             return res.status(200).json(user);
@@ -34,12 +34,12 @@ export default class UserController {
         try {
             const userId = req.params.userId;
             if (!userId) {
-                return res.status(401).json({ error: "Autenticação necessária." });
+                return res.status(401).json({ error: "Authentication required." });
             }
 
             const user = await UserRepository.getById(userId);
             if (!user) {
-                return res.status(404).json({ error: "Usuário não encontrado." });
+                return res.status(404).json({ error: "User not found." });
             }
 
             const preferences = await PreferencesRepository.getPreferences(userId);
@@ -61,11 +61,11 @@ export default class UserController {
             const { interests } = req.body;
 
             if (!userId) {
-                return res.status(401).json({ error: "Autenticação necessária." });
+                return res.status(401).json({ error: "Authentication required." });
             }
 
             if (!interests) {
-                return res.status(400).json({ error: "Informe os campos obrigatórios corretamente." });
+                return res.status(400).json({ error: "Please fill in the required fields correctly." });
             }
 
             if (!Array.isArray(interests)) {
@@ -74,7 +74,7 @@ export default class UserController {
 
             const user = await UserRepository.getById(userId);
             if (!user) {
-                return res.status(404).json({ error: "Usuário não encontrado." });
+                return res.status(404).json({ error: "User not found." });
             }
 
             const preferences = await PreferencesRepository.setPreferences(userId, interests);
@@ -89,11 +89,11 @@ export default class UserController {
     async updateAvatar(req: Request, res: Response) {
         try {
             const userId = req.params.userId;
-            if (!userId) return res.status(401).json({ error: "Autenticação necessária." });
-            if (!req.file) return res.status(400).json({ error: "Informe os campos obrigatórios corretamente." });
+            if (!userId) return res.status(401).json({ error: "Authentication required." });
+            if (!req.file) return res.status(400).json({ error: "Please fill in the required fields correctly." });
 
             const user = await UserRepository.getById(userId);
-            if (!user) return res.status(404).json({ error: "Usuário não encontrado." });
+            if (!user) return res.status(404).json({ error: "User not found." });
 
             const imageUrl = await uploadImage(req.file);
             await UserRepository.update({ avatar: imageUrl }, userId);
@@ -103,8 +103,8 @@ export default class UserController {
         } catch (error) {
             console.error(error);
 
-            if (error instanceof Error && error.message.includes('imagem')) {
-                return res.status(400).json({ error: "A imagem deve ser um arquivo PNG ou JPG." });
+            if (error instanceof Error && error.message.includes('image')) {
+                return res.status(400).json({ error: "The image must be a PNG or JPG file." });
             }
 
             return res.status(500).end();
@@ -117,26 +117,26 @@ export default class UserController {
             const tokenUserId = req.user?.id;
             const { name, email, currentPassword, newPassword } = req.body;
 
-            if (!tokenUserId) return res.status(401).json({ error: "Autenticação necessária." });
+            if (!tokenUserId) return res.status(401).json({ error: "Authentication required." });
 
             if (userId !== tokenUserId) return res.status(403).end();
 
-            if (!name || !email) return res.status(400).json({ error: "Informe os campos obrigatórios corretamente." });
+            if (!name || !email) return res.status(400).json({ error: "Please fill in the required fields correctly." });
 
             const user = await UserRepository.getById(userId);
-            if (!user) return res.status(404).json({ error: "Usuário não encontrado." });
+            if (!user) return res.status(404).json({ error: "User not found." });
 
-            if (user.deletedAt) return res.status(403).json({ error: "Esta conta foi desativada e não pode ser utilizada." });
+            if (user.deletedAt) return res.status(403).json({ error: "This account has been deactivated and cannot be used." });
 
             const emailExists = await UserRepository.getByEmail(email);
-            if (emailExists && emailExists.id !== userId) return res.status(409).json({ error: "O e-mail informado já pertence a outro usuário." });
+            if (emailExists && emailExists.id !== userId) return res.status(409).json({ error: "The provided email already belongs to another user." });
 
             let hashedPassword = user.password;
             if (newPassword) {
                 if (!currentPassword) return res.status(400).end();
 
                 const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
-                if (!isPasswordValid) return res.status(401).json({ error: "Senha incorreta." });
+                if (!isPasswordValid) return res.status(401).json({ error: "Incorrect password." });
 
                 hashedPassword = await bcrypt.hash(newPassword, 10);
             }
@@ -155,18 +155,18 @@ export default class UserController {
         try {
             const userId = req.params.userId;
             if (!userId) {
-                return res.status(401).json({ error: "Autenticação necessária." });
+                return res.status(401).json({ error: "Authentication required." });
             }
 
             const user = await UserRepository.getById(userId);
             if (!user) {
-                return res.status(404).json({ error: "Usuário não encontrado." });
+                return res.status(404).json({ error: "User not found." });
             }
 
             const deactivatedUser = await UserRepository.deactivate(userId);
 
             return res.status(200).json({
-                message: "Conta desativada com sucesso.",
+                message: "Account deactivated successfully.",
                 user: deactivatedUser
             });
         } catch (error) {

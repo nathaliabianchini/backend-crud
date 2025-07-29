@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import * as UserRepository from "../repository/user-repository";
 
-const SECRET_KEY = process.env.JWT_SECRET || "seu_segredo_super_secreto";
+const SECRET_KEY = process.env.JWT_SECRET || "your_super_secret_secret";
 
 export class AuthController {
     async register(req: Request, res: Response):  Promise<void> {
@@ -12,7 +12,7 @@ export class AuthController {
 
             const existingUser = await UserRepository.findByEmailOrCpf(email, cpf);
             if (existingUser) {
-                res.status(400).json({ error: "O e-mail ou CPF informado já pertence a outro usuário." });
+                res.status(400).json({ error: "The provided email or CPF already belongs to another user." });
                 return;
             }
 
@@ -25,14 +25,14 @@ export class AuthController {
                 password: hashedPassword
             });
 
-            res.status(201).json({ message: "Usuário cadastrado com sucesso!", userId: newUser.id });
+            res.status(201).json({ message: "User succesfulyy registered!", userId: newUser.id });
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(error.message);
-                res.status(500).json({ error: `Erro interno: ${error.message}` });
+                res.status(500).json({ error: `Internal error: ${error.message}` });
             } else {
                 console.error(error);
-                res.status(500).json({ error: "Erro interno no servidor" });
+                res.status(500).json({ error: "Internal server error" });
             }
         }
     }
@@ -43,27 +43,27 @@ export class AuthController {
 
             const user = await UserRepository.getByEmail(email);
             if (!user) {
-                res.status(404).json({ error: "Usuário não encontrado." });
+                res.status(404).json({ error: "User not found." });
                 return;
             }
 
             if (user.deletedAt) {
-                res.status(403).json({ error: "Esta conta foi desativada e não pode ser utilizada." });
+                res.status(403).json({ error: "This account has been deactivated and cannot be used." });
                 return;
             }
 
             const isPasswordValid = await bcrypt.compare(password, user.password);
             if (!isPasswordValid) {
-                res.status(401).json({ error: "Senha incorreta." });
+                res.status(401).json({ error: "Incorrect password." });
                 return;
             }
 
             const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: "1h" });
 
-            res.json({ message: "Login realizado com sucesso!", token });
+            res.json({ message: "Login successful!", token });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: "Erro interno no servidor" });
+            res.status(500).json({ error: "Internal server error" });
         }
     }
 }
