@@ -33,7 +33,7 @@ this is a backend API built with Node.js, Express, TypeScript, and PostgreSQL. P
    git clone <repository-url>
    cd backend
    ```
-   run the application with Docker Compose:
+   run the application with docker compose:
    ```bash
    docker compose up --build
    ```
