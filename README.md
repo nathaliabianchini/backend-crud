@@ -1,6 +1,6 @@
 # backend crud prject
 
-this is a backend API built with Node.js, Express, TypeScript, and PostgreSQL. Prisma is used for database access, and the application runs in a Dockerized environment.
+this is a backend API provides comprehensive user management, including registration, login, profile updates, avatar customization and account deactivation.
 
 ## technologies used
 
