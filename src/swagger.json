@@ -1,22 +1,24 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Bootcamp 2025 API",
+    "title": "Basic CRUD",
     "version": "1.0.0",
-    "description": "Documentação da API de usuários e autenticação"
+    "description": "Users and authentication API Docs"
   },
   "servers": [
     {
       "url": "http://localhost:3000",
-      "description": "Servidor local de desenvolvimento"
+      "description": "Development local server"
     }
   ],
   "paths": {
     "/user/{userId}": {
       "get": {
-        "summary": "Buscar dados do usuário",
-        "description": "Retorna os dados completos de um usuário pelo seu ID",
-        "tags": ["User"],
+        "summary": "Get user data",
+        "description": "Returns full user data by their ID",
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "userId",
@@ -25,12 +27,12 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID do usuário"
+            "description": "User ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "Dados do usuário",
+            "description": "User data",
             "content": {
               "application/json": {
                 "schema": {
@@ -40,13 +42,15 @@
             }
           },
           "404": {
-            "description": "Usuário não encontrado"
+            "description": "User not found"
           }
         }
       },
       "put": {
-        "summary": "Editar dados do usuário",
-        "tags": ["User"],
+        "summary": "Edit user data",
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "userId",
@@ -68,18 +72,20 @@
         },
         "responses": {
           "200": {
-            "description": "Usuário atualizado com sucesso"
+            "description": "User updated successfully"
           },
           "400": {
-            "description": "Dados inválidos"
+            "description": "Invalid data"
           }
         }
       }
     },
     "/user/{userId}/preferences": {
       "get": {
-        "summary": "Buscar interesses do usuário",
-        "tags": ["User"],
+        "summary": "Get user interests",
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "userId",
@@ -92,7 +98,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Interesses do usuário",
+            "description": "User interests",
             "content": {
               "application/json": {
                 "schema": {
@@ -106,8 +112,10 @@
     },
     "/user/{userId}/preferences/define": {
       "post": {
-        "summary": "Definir interesses do usuário",
-        "tags": ["User"],
+        "summary": "Define user interests",
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "userId",
@@ -129,16 +137,18 @@
         },
         "responses": {
           "200": {
-            "description": "Interesses atualizadas com sucesso"
+            "description": "Interests updated successfully"
           }
         }
       }
     },
     "/user/{userId}/avatar": {
       "put": {
-        "summary": "Editar foto de perfil do usuário",
-        "description": "Upload de uma imagem (JPEG/PNG) como avatar do usuário (max 5MB)",
-        "tags": ["User"],
+        "summary": "Edit user profile photo",
+        "description": "Upload an image (JPEG/PNG) as the user's avatar (max 5MB)",
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "userId",
@@ -159,7 +169,7 @@
                   "avatar": {
                     "type": "string",
                     "format": "binary",
-                    "description": "Arquivo de imagem (JPEG/PNG)"
+                    "description": "Image file (JPEG/PNG)"
                   }
                 }
               }
@@ -168,18 +178,20 @@
         },
         "responses": {
           "200": {
-            "description": "Foto de perfil atualizado com sucesso"
+            "description": "Profile photo updated successfully"
           },
           "400": {
-            "description": "Formato de arquivo inválido ou tamanho excedido"
+            "description": "Invalid file format or size exceeded"
           }
         }
       }
     },
     "/user/{userId}/deactivate": {
       "delete": {
-        "summary": "Desativar conta do usuário",
-        "tags": ["User"],
+        "summary": "Deactivate user account",
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "userId",
@@ -192,15 +204,17 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário desativado com sucesso"
+            "description": "User deactivated successfully"
           }
         }
       }
     },
     "/auth/register": {
       "post": {
-        "summary": "Cadastro de usuário",
-        "tags": ["Auth"],
+        "summary": "User registration",
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -213,7 +227,7 @@
         },
         "responses": {
           "201": {
-            "description": "Usuário cadastrado com sucesso",
+            "description": "User registered successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -225,7 +239,7 @@
                     },
                     "token": {
                       "type": "string",
-                      "description": "JWT token para autenticação"
+                      "description": "JWT token for authentication"
                     }
                   }
                 }
@@ -233,15 +247,17 @@
             }
           },
           "400": {
-            "description": "Dados inválidos ou usuário já existe"
+            "description": "Invalid data or user already exists"
           }
         }
       }
     },
     "/auth/sign-in": {
       "post": {
-        "summary": "Login de usuário",
-        "tags": ["Auth"],
+        "summary": "User login",
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -254,7 +270,7 @@
         },
         "responses": {
           "200": {
-            "description": "Login bem-sucedido",
+            "description": "Login successful",
             "content": {
               "application/json": {
                 "schema": {
@@ -262,7 +278,7 @@
                   "properties": {
                     "token": {
                       "type": "string",
-                      "description": "JWT token para autenticação"
+                      "description": "JWT token for authentication"
                     },
                     "user": {
                       "$ref": "#/components/schemas/User"
@@ -273,7 +289,7 @@
             }
           },
           "401": {
-            "description": "Credenciais inválidas"
+            "description": "Invalid credentials"
           }
         }
       }
@@ -322,7 +338,11 @@
         "properties": {
           "theme": {
             "type": "string",
-            "enum": ["light", "dark", "system"],
+            "enum": [
+              "light",
+              "dark",
+              "system"
+            ],
             "default": "system"
           },
           "notificationsEnabled": {
@@ -333,44 +353,51 @@
       },
       "UserRegistration": {
         "type": "object",
-        "required": ["name", "email", "password"],
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
         "properties": {
           "name": {
             "type": "string",
             "minLength": 2,
-            "example": "João Silva"
+            "example": "John Smith"
           },
           "email": {
             "type": "string",
             "format": "email",
-            "example": "joao@exemplo.com"
+            "example": "john@example.com"
           },
           "password": {
             "type": "string",
             "minLength": 6,
-            "example": "senha123"
+            "example": "password123"
           }
         }
       },
       "UserCredentials": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
             "format": "email",
-            "example": "joao@exemplo.com"
+            "example": "john@example.com"
           },
           "password": {
             "type": "string",
-            "example": "senha123"
+            "example": "password123"
           }
         }
       }
     },
     "responses": {
       "BadRequest": {
-        "description": "Requisição inválida",
+        "description": "Invalid request",
         "content": {
           "application/json": {
             "schema": {
@@ -378,7 +405,7 @@
               "properties": {
                 "error": {
                   "type": "string",
-                  "example": "Dados inválidos"
+                  "example": "Invalid data"
                 }
               }
             }
@@ -386,7 +413,7 @@
         }
       },
       "Unauthorized": {
-        "description": "Não autorizado",
+        "description": "Unauthorized",
         "content": {
           "application/json": {
             "schema": {
@@ -394,7 +421,7 @@
               "properties": {
                 "error": {
                   "type": "string",
-                  "example": "Credenciais inválidas"
+                  "example": "Invalid credentials"
                 }
               }
             }
@@ -412,12 +439,12 @@
   },
   "tags": [
     {
-      "name": "User",
-      "description": "Operações relacionadas a usuários"
+      "name": "Auth",
+      "description": "Authentication operations"
     },
     {
-      "name": "Auth",
-      "description": "Operações de autenticação"
+      "name": "User",
+      "description": "Operations related to users"
     }
   ]
 }
