@@ -14,14 +14,6 @@ this is a backend API built with Node.js, Express, TypeScript, and PostgreSQL. P
 - AWS S3 (via LocalStack)
 - JWT for authentication
 
-## running the application
-
-1. clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd backend
-   ```
-
 ## .env
    to run the application, a .env file containing environment variables is required.
    ```env
@@ -35,18 +27,18 @@ this is a backend API built with Node.js, Express, TypeScript, and PostgreSQL. P
    AWS_SECRET_ACCESS_KEY=test
    ```
 
-3. run the application with Docker Compose:
+## running the application
+   clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd backend
+   ```
+   run the application with Docker Compose:
    ```bash
    docker compose up --build
    ```
 
 ## api endpoints
    an overview of the available API endpoints, documented with Swagger.
+   
    <img width="1696" height="663" alt="Captura de tela 2025-07-28 220103" src="https://github.com/user-attachments/assets/222f4686-5b9a-4204-ba5b-521b1f8da259" />
-
-## db migrations
-
-to apply Prisma migrations (optional when running manually):
-```bash
-npx prisma migrate dev --name your_migration_name
-```
