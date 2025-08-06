@@ -439,11 +439,11 @@
   },
   "tags": [
     {
-      "name": "Auth",
+      "name": "auth",
       "description": "Authentication operations"
     },
     {
-      "name": "User",
+      "name": "user",
       "description": "Operations related to users"
     }
   ]
