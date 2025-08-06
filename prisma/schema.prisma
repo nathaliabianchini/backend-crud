@@ -8,13 +8,15 @@ datasource db {
 }
 
 model Users {
-  id        String    @id @default(uuid())
-  name      String    @db.VarChar(600)
-  email     String    @unique
-  cpf       String    @unique
-  password  String
-  avatar    String    @default("default-avatar.png")
-  deletedAt DateTime? @map("deleted_at")
+  id                     String    @id @default(uuid())
+  name                   String    @db.VarChar(600)
+  email                  String    @unique
+  cpf                    String    @unique
+  password               String
+  avatar                 String    @default("default-avatar.png")
+  deletedAt              DateTime? @map("deleted_at")
+  recoveryToken          String?
+  recoveryTokenExpiresAt DateTime?
 
   createdActivities    Activities[]           @relation("CreatorActivities")
   activityParticipants ActivityParticipants[] @relation("ActivityParticipants")
