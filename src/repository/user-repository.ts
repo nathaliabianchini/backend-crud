@@ -4,8 +4,8 @@ export async function findByEmailOrCpf(email: string, cpf: string) {
     return prisma.users.findFirst({
         where: {
             OR: [
-                {email},
-                {cpf}
+                { email },
+                { cpf }
             ]
         }
     });
@@ -38,16 +38,26 @@ export async function getById(userId: string) {
 
 export async function update(data: any, userId: string) {
     return prisma.users.update({
-        where: {id: userId},
+        where: { id: userId },
         data: data,
     });
 }
 
 export async function deactivate(userId: string) {
     return prisma.users.update({
-        where: {id: userId},
+        where: { id: userId },
         data: {
             deletedAt: new Date(),
+        },
+    });
+}
+
+export function saveRecoveryToken(userId: string, recoveryToken: string, expiresAt: Date) {
+    return prisma.users.update({
+        where: { id: userId },
+        data: {
+            recoveryToken: recoveryToken,
+            recoveryTokenExpiresAt: expiresAt,
         },
     });
 }
