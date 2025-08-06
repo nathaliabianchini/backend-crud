@@ -23,15 +23,14 @@ this is a backend API provides comprehensive user management, including registra
    BUCKET_NAME=<bucket_name>
    S3_ENDPOINT=http://localstack:4566
    AWS_REGION=us-east-1
-   AWS_ACCESS_KEY=test
-   AWS_SECRET_ACCESS_KEY=test
+   AWS_ACCESS_KEY=<access_key>
+   AWS_SECRET_ACCESS_KEY=<secret_access_key>
    ```
 
 ## running the application
    clone the repository:
    ```bash
    git clone <repository-url>
-   cd backend
    ```
    run the application with docker compose:
    ```bash
